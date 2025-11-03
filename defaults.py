@@ -21,7 +21,6 @@ FIELD_DEFAULTS = {
 FIELD_FUNCTIONS = {
     'name': lambda base, path, data: os.path.basename(path),
     'folder': lambda base, path, data: os.path.dirname(path).replace(base, '').lstrip('/'),
-    'login_password': lambda base, path, data: data.split("\n")[0],
 }
 
 FIELD_PATTERNS = {
@@ -29,3 +28,7 @@ FIELD_PATTERNS = {
     'login_username': '^(?:user|login|username).* ?: ?(.*)$',
     'login_totp': r'otpauth://totp/[^?]+\?secret=([^&]+)',
 }
+
+FALLBACK_FIELD = 'notes'
+
+FIRSTLINE_IS_LOGIN_PASSWORD = True
