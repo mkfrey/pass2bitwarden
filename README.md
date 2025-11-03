@@ -1,5 +1,28 @@
 # pass2bitwarden
 
+---
+
+Note:
+
+This is a fork of pass2bitwarden, which changes the parsing behaviour to avoid losing data without notice.
+
+Instead of applying regular expressions to the entire file content to extract
+values, the file content is split up into lines.
+
+Each line is processed separately using the field patterns. If multiple lines
+are matched by a pattern, the additional lines are omitted and a warning is
+printed.
+
+A special case is the first line, which is directly used as password if
+`FIRSTLINE_IS_LOGIN_PASSWORD` is set to `True`.
+
+All lines not matching any pattern are put into a configurable column
+`FALLBACK_FIELD`, which is set to `notes` by default.
+
+This new strategy prevents data loss, since each line is explicitly handled. If data is omitted, a warning is printed.
+
+---
+
 A Python script to export data from [pass](https://www.passwordstore.org/) in [Bitwarden](https://bitwarden.com/) CSV format. This started as a quick and dirty script to move my passwords to Bitwarden, but it turned out worthy of being shared.
 
 Inspired by [reinefjord/pass2csv](https://github.com/reinefjord/pass2csv), but rewritten from scratch. There's probably some similarities.
